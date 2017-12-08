@@ -41,12 +41,12 @@ There are several things of note.
 
 The whitelisted prefixes are:
 
-1. **STAGE**: _&lt;name of the stage&gt; _: Stage represents where gcpfind is currently at
+ - **STAGE**: _&lt;name of the stage&gt; _: Stage represents where gcpfind is currently at
 
-2. **PROGRESS**: _&lt;number from 0..100 representing the progress at this stage&gt;_: Progress indicates the progress of the current stage
-3. **RESPONSE**: _&lt;json response&gt;_ : Response notifies gcpfind\_server that data should be read in.
-4. **WAITING**:_&lt;&gt;_ : Waiting notifies gcpfind\_server that data should be sent in
-5. **EXIT**: _&lt;return code: 0 = SUCCESS xxx= FAILURE&gt;_: Exit the program immediately
+ - **PROGRESS**: _&lt;number from 0..100 representing the progress at this stage&gt;_: Progress indicates the progress of the current stage
+ - **RESPONSE**: _&lt;json response&gt;_ : Response notifies gcpfind\_server that data should be read in.
+ - **WAITING**:_&lt;&gt;_ : Waiting notifies gcpfind\_server that data should be sent in
+ - **EXIT**: _&lt;return code: 0 = SUCCESS xxx= FAILURE&gt;_: Exit the program immediately
 
 1. During the "GCP detection stage" RESPONSE: and PROGRESS: commands may be intermixed \(Progress: 0, Response: {}, Progress: 10, Response: {}\)
 2. The WAIT: command does not stall the program. It just indicates that something may be written to STDIN. 

@@ -169,8 +169,7 @@
 <p>Let&apos;s describe how these pieces work from a bottom-up perspective.</p>
 <h4 id="gcpfindpy">gcpfind.py</h4>
 <p>A typical run of gcpfind.py looks like this:</p>
-<p><strong>$</strong> Indicates standard out
-<strong>&gt;</strong> Indicates standard out</p>
+<p><strong>$</strong> Indicates standard out<br><strong>&gt;</strong> Indicates standard out</p>
 <pre><code>$ welcome to GCP detection
 $ starting GCP detection
 $ STAGE: GCP detection
@@ -187,16 +186,21 @@ $ Please send feedback
 $ STAGE: GCP File Generation
 $ Response: { gcp: &quot;/home/code/gcp_list.txt&quot;, feedback: {} }
 $ EXIT: 0
-</code></pre><p>There are several things of note. </p>
+</code></pre><p>There are several things of note.  </p>
 <ol>
-<li>Any output printed that does not begin with a whitelisted prefix is ignored by the automation script gcpfind_server, and is purely for user input.
-1.1 The whitelisted prefixes are</li>
-<li>STAGE: <name of="" the="" stage="">: Stage represents where gcpfind is currently at</name></li>
-<li>PROGRESS: <number from="" 0..100="" representing="" the="" progress="" at="" this="" stage="">: Progress indicates the progress of the current stage</number></li>
-<li>RESPONSE: <json response="">: Response notifies gcpfind_server that data should be read in.
--WAITING: : Waiting notifies gcpfind_server that data should be sent in</json></li>
-<li>EXIT: <return 0="SUCCESS" code:="" xxx="FAILURE">: Exit the program immediately</return></li>
-<li></li>
+<li>Any output printed that does not begin with a whitelisted prefix is ignored by the automation script gcpfind_server, and is purely for user input.</li>
+</ol>
+<p>The whitelisted prefixes are:</p>
+<ul>
+<li><p><strong>STAGE</strong>: <em>&lt;name of the stage&gt; </em>: Stage represents where gcpfind is currently at</p>
+</li>
+<li><p><strong>PROGRESS</strong>: <em>&lt;number from 0..100 representing the progress at this stage&gt;</em>: Progress indicates the progress of the current stage</p>
+</li>
+<li><strong>RESPONSE</strong>: <em>&lt;json response&gt;</em> : Response notifies gcpfind_server that data should be read in.</li>
+<li><strong>WAITING</strong>:<em>&lt;&gt;</em> : Waiting notifies gcpfind_server that data should be sent in</li>
+<li><strong>EXIT</strong>: <em>&lt;return code: 0 = SUCCESS xxx= FAILURE&gt;</em>: Exit the program immediately</li>
+</ul>
+<ol>
 <li>During the &quot;GCP detection stage&quot; RESPONSE: and PROGRESS: commands may be intermixed (Progress: 0, Response: {}, Progress: 10, Response: {})</li>
 <li>The WAIT: command does not stall the program. It just indicates that something may be written to STDIN. </li>
 </ol>
@@ -240,7 +244,7 @@ $ EXIT: 0
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Technical Specification","level":"1.2","depth":1,"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter1.md","mtime":"2017-12-08T21:14:19.179Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-12-08T21:16:07.327Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Technical Specification","level":"1.2","depth":1,"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter1.md","mtime":"2017-12-08T21:29:25.273Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-12-08T21:29:33.833Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

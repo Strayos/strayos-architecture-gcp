@@ -42,7 +42,7 @@ There are several things of note.
  - STAGE: <name of the stage>: Stage represents where gcpfind is currently at
  - PROGRESS: <number from 0..100 representing the progress at this stage>: Progress indicates the progress of the current stage
  - RESPONSE: <json response>: Response notifies gcpfind_server that data should be read in.
- -WAITING: : Waiting notifies gcpfind_server that data should be sent in
+ - WAITING: : Waiting notifies gcpfind_server that data should be sent in
  - EXIT: <return code: 0 = SUCCESS xxx= FAILURE>: Exit the program immediately
 2. 
 2. During the "GCP detection stage" RESPONSE: and PROGRESS: commands may be intermixed (Progress: 0, Response: {}, Progress: 10, Response: {})

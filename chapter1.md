@@ -47,8 +47,9 @@ The whitelisted prefixes are:
 3. **RESPONSE**: _&lt;json response&gt;_ : Response notifies gcpfind\_server that data should be read in.
 4. **WAITING**:_&lt;&gt;_ : Waiting notifies gcpfind\_server that data should be sent in
 5. **EXIT**: _&lt;return code: 0 = SUCCESS xxx= FAILURE&gt;_: Exit the program immediately
-   1. During the "GCP detection stage" RESPONSE: and PROGRESS: commands may be intermixed \(Progress: 0, Response: {}, Progress: 10, Response: {}\)
-   2. The WAIT: command does not stall the program. It just indicates that something may be written to STDIN. 
+
+1. During the "GCP detection stage" RESPONSE: and PROGRESS: commands may be intermixed \(Progress: 0, Response: {}, Progress: 10, Response: {}\)
+2. The WAIT: command does not stall the program. It just indicates that something may be written to STDIN. 
 
 #### gcpfind\_server
 

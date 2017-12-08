@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Introduction · GitBook</title>
+        <title>Appendix · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="chapter1.html" />
+    <link rel="next" href="appendix/gcpfindserver.html" />
     
     
 
@@ -87,7 +87,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -158,7 +158,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="appendix.html">
+        <li class="chapter active" data-level="1.3" data-path="appendix.html">
             
                 <a href="appendix.html">
             
@@ -220,7 +220,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >Appendix</a>
     </h1>
 </div>
 
@@ -235,31 +235,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="strayos-architecture-gcp">Strayos Architecture: GCP</h1>
-<h3 id="functional-specification">Functional Specification</h3>
-<h6 id="david-ayeke">David Ayeke</h6>
-<p>Last Updated: December 8, 2017
-2017 Strayos, All Rights Reserved</p>
-<hr>
-<h2 id="overview">Overview</h2>
-<p>GCP&apos;s aid ODM&apos;s accuracy by marking GPS locations of easily recognizable features in the images. 
-A typical GCP file looks like the following. </p>
-<pre><code>WGS84 UTM 10N
-544256.7 5320919.9 5 3044 2622 IMG_0525.jpg
-544157.7 5320899.2 5 4193 1552 IMG_0585.jpg
-544033.4 5320876.0 5 1606 2763 IMG_0690.jpg
-</code></pre><p>Line 1 is the projection. To aid the front end and other parts of our system, all GCP files processed by ODM will need to be in a UTM projection <strong>NOT</strong> an EPSG code. </p>
-<p>The subsequent lines are geographic locations of specific pixels in specific images in the following format: Easting Northing Height(in meters) PixelX PixelY Filename</p>
-<p>This spec is not, by any stretch of the imagination, complete. All of the wording will neeed to be revisited several times before it is finalized. The graphics and layout of the screens is shown here merely to illustrate the underlying functionality. The actual look and feel will be developed over time in typical agile fashion. </p>
-<h2 id="scenarios">Scenarios</h2>
-<p>In designing products, it helps to imagine a few real life stores of how actual (stereotypical) people would use them.</p>
-<h3 id="scenario-1-greg-the-gcp-nut">Scenario 1: Greg the GCP nut</h3>
-<p>Greg is using the Strayos platform to process a flight. He uploads a GCP template in the format we specify as well as the images. During processing, a window pops up with GCP&apos;s we were able to detect. It prompts him to click the exact center of the gcp. Once he has done that for the gcps that were detected, he gets prompted again with gcp&apos;s he may have missed. He repeats the process he did for the initial list. Once everything looks good, he is prompted to finish the upload process. </p>
-<h3 id="scenario-2-tom-the-tensor-tinkerer">Scenario 2: Tom the Tensor Tinkerer</h3>
-<p>Tom wants to improve our GCP detection algorithm. We&apos;ve had hundreds of GCP&apos;s processed by the new system, and he wants to use that data to create new training and validation sets for the neural network. He should be able to download the GCPs generated from feedback from the users.</p>
-<h3 id="scenario-3-david-the-debugger">Scenario 3: David the Debugger</h3>
-<p>An email came in from a user that couldn&apos;t upload images. David queries the api for all processes, and sees that one of the images don&apos;t have exif data (or something). He then restarts that process.</p>
-
+                                
                                 
                                 </section>
                             
@@ -287,7 +263,7 @@ A typical GCP file looks like the following. </p>
             
                 
                 
-                <a href="chapter1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Technical Specification">
+                <a href="appendix/gcpfindserver.html" class="navigation navigation-next navigation-unique" aria-label="Next page: gcpfind_server API">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -298,7 +274,7 @@ A typical GCP file looks like the following. </p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Technical Specification","level":"1.2","depth":1,"path":"chapter1.md","ref":"chapter1.md","articles":[{"title":"Understanding gcpfind.py","level":"1.2.1","depth":2,"path":"chapter1/understanding-gcpfindpy.md","ref":"chapter1/understanding-gcpfindpy.md","articles":[]},{"title":"Understanding gcpfind_server","level":"1.2.2","depth":2,"ref":"","articles":[]},{"title":"Understanding gcpfind_cluster","level":"1.2.3","depth":2,"ref":"","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2017-12-08T21:10:41.290Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-12-08T22:30:34.863Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Appendix","level":"1.3","depth":1,"next":{"title":"gcpfind_server API","level":"1.3.1","depth":2,"path":"appendix/gcpfindserver.md","ref":"appendix/gcpfindserver.md","articles":[]},"previous":{"title":"Understanding gcpfind_cluster","level":"1.2.3","depth":2,"ref":"","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"appendix.md","mtime":"2017-12-08T22:30:29.634Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-12-08T22:30:34.863Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

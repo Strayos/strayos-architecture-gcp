@@ -57,6 +57,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="chapter1/understanding-gcpfindpy.html" />
+    
     
     <link rel="prev" href="./" />
     
@@ -110,6 +112,83 @@
                 </a>
             
 
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="chapter1/understanding-gcpfindpy.html">
+            
+                <a href="chapter1/understanding-gcpfindpy.html">
+            
+                    
+                    Understanding gcpfind.py
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" >
+            
+                <span>
+            
+                    
+                    Understanding gcpfind_server
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" >
+            
+                <span>
+            
+                    
+                    Understanding gcpfind_cluster
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="appendix.html">
+            
+                <a href="appendix.html">
+            
+                    
+                    Appendix
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="appendix/gcpfindserver.html">
+            
+                <a href="appendix/gcpfindserver.html">
+            
+                    
+                    gcpfind_server API
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
             
         </li>
     
@@ -169,8 +248,7 @@
 <p>Let&apos;s describe how these pieces work from a bottom-up perspective.</p>
 <h4 id="gcpfindpy">gcpfind.py</h4>
 <p>A typical run of gcpfind.py looks like this:</p>
-<p><strong>$</strong> Indicates standard out
-<strong>&gt;</strong> Indicates standard out</p>
+<p><strong>$</strong> Indicates standard out<br><strong>&gt;</strong> Indicates standard out</p>
 <pre><code>$ welcome to GCP detection
 $ starting GCP detection
 $ STAGE: GCP detection
@@ -187,20 +265,46 @@ $ Please send feedback
 $ STAGE: GCP File Generation
 $ Response: { gcp: &quot;/home/code/gcp_list.txt&quot;, feedback: {} }
 $ EXIT: 0
-</code></pre><p>There are several things of note. </p>
+</code></pre><p>There are several things of note.  </p>
 <ol>
-<li>Any output printed that does not begin with a whitelisted prefix is ignored by the automation script gcpfind_server, and is purely for user input.
- 1.1 The whitelisted prefixes are
- STAGE: <name of="" the="" stage="">: Stage represents where gcpfind is currently at
- PROGRESS: <number from="" 0..100="" representing="" the="" progress="" at="" this="" stage="">: Progress indicates the progress of the current stage
- RESPONSE: <json response="">: Response notifies gcpfind_server that data should be read in.
- WAITING: : Waiting notifies gcpfind_server that data should be sent in
- EXIT: <return 0="SUCCESS" code:="" xxx="FAILURE">: Exit the program immediately</return></json></number></name></li>
-<li></li>
-<li>During the &quot;GCP detection stage&quot; RESPONSE: and PROGRESS: commands may be intermixed (Progress: 0, Response: {}, Progress: 10, Response: {})</li>
-<li>The WAIT: command does not stall the program. It just indicates that something may be written to STDIN. </li>
+<li>Any output printed that does not begin with a whitelisted prefix is ignored by the automation script gcpfind_server, and is purely for user input.</li>
 </ol>
+<p>The whitelisted prefixes are:</p>
+<ul>
+<li><p><strong>STAGE</strong>: <em>&lt;name of the stage&gt; </em>: Stage represents where gcpfind is currently at</p>
+</li>
+<li><p><strong>PROGRESS</strong>: <em>&lt;number from 0..100 representing the progress at this stage&gt;</em>: Progress indicates the progress of the current stage</p>
+</li>
+<li><p><strong>RESPONSE</strong>: <em>&lt;json response&gt;</em> : Response notifies gcpfind_server that data should be read in.</p>
+</li>
+<li><p><strong>WAITING</strong>:<em>&lt;&gt;</em> : Waiting notifies gcpfind_server that data should be sent in</p>
+</li>
+<li><p><strong>EXIT</strong>: <em>&lt;return code: 0 = SUCCESS xxx= FAILURE&gt;</em>: Exit the program immediately</p>
+</li>
+<li><p>During the &quot;GCP detection stage&quot; RESPONSE: and PROGRESS: commands may be intermixed (Progress: 0, Response: {}, Progress: 10, Response: {})</p>
+</li>
+<li><p>The WAIT: command does not stall the program. It just indicates that something may be written to STDIN. </p>
+</li>
+</ul>
 <h4 id="gcpfindserver">gcpfind_server</h4>
+<p>gcpfind_server is an API wrapper around gcpfind that allows gcpfind to be run as a parallel jobs, and accessed over the web.<br>Before explaining the intricacies of gcpfind_server, let&apos;s walk through the typical workflow.</p>
+<p><img src="assets/Screenshot %2877%29.png" alt=""></p>
+<ol>
+<li>The user uploads their images along with the initial gcp template as specified by the gcpfind. The urls of these resources are then sent to gcpfind_server. gcpfind_server and gcpfind.py both run on the same machine. </li>
+<li>gcpfind_server creates a new <strong>Job</strong>, a running instance of gcpfind, as well as a session.json which consist of metadata required by gcpfind.py. The images and gcp template are downloaded to a temporary directory, gcpfind.py is then run passing the directory with the images and gcp template in as command line arguments. </li>
+<li>gcpfind.py performs a first pass through the images, locating the ones it thinks has gcps and sending those to gcpfind_server.</li>
+<li>gcpfind_server notifies the FE that gcpfind has found a gcp either through websockets or the front end polling some API endpoint. </li>
+<li>User refines the position of the gcps sent by the server and also marks images that definitely have no gcps. </li>
+<li>The front end send the information generated by step 5. to the server. </li>
+<li>The sever passes that information to gcpfind which waits until all estimated gcps are confirmed. Note that steps 3-7 happen intermittently. gcpfind will send gcps as it goes, and also listen for user confirmed ones at the same time. </li>
+<li>When all gcps are confirmed, gcpfind generates a final gcp_list.txt in the format required by ODM, and also a feedback.json which is essentially a log of it&apos;s guesses and what the user confirmed. It then exits. </li>
+<li>gcpfind_server stores the feedback.json and passes the gcp_lists.txt to the front end. </li>
+<li>The Front End then uploads the gcp_list.txt file to the images folder as specified by ODM, and then flags the project for processing.</li>
+</ol>
+<p>In addition to the main workflow, gcpfind_server has many API endpoints for monitoring jobs, and wraps a small webapp ui for inspection.</p>
+<h4 id="gcpfindcluster">gcpfind_cluster</h4>
+<p><img src="assets/Screenshot %2879%29.png" alt=""></p>
+<p>Unlike its counterparts, gcpfind_cluster is not a program. _It&apos;s a cluster of machines bootstrapped through terraform, nomad, and consul with a simple fabio load balancer in the front. This will expose a consistent domain name (ex. strayosgcpfind.com) that can be used from the front end.</p>
 
                                 
                                 </section>
@@ -228,10 +332,14 @@ $ EXIT: 0
 
             
                 
-                <a href="./" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Introduction">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Introduction">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="chapter1/understanding-gcpfindpy.html" class="navigation navigation-next " aria-label="Next page: Understanding gcpfind.py">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -240,7 +348,7 @@ $ EXIT: 0
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Technical Specification","level":"1.2","depth":1,"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter1.md","mtime":"2017-12-08T21:29:34.692Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-12-08T21:30:05.295Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Technical Specification","level":"1.2","depth":1,"next":{"title":"Understanding gcpfind.py","level":"1.2.1","depth":2,"path":"chapter1/understanding-gcpfindpy.md","ref":"chapter1/understanding-gcpfindpy.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"chapter1.md","mtime":"2017-12-08T22:30:29.638Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-12-08T22:30:34.863Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

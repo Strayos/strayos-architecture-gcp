@@ -53,5 +53,6 @@ The whitelisted prefixes are:
 
 #### gcpfind\_server
 
-
+gcpfind_server is an API wrapper around gcpfind that allows gcpfind to be run as a parallel jobs, and accessed over the web. 
+Before explaining the intricacies of gcpfind_server, let's walk through the typical workflow i
 

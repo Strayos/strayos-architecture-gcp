@@ -39,7 +39,7 @@ $ EXIT: 0
 There are several things of note. 
 1. Any output printed that does not begin with a whitelisted prefix is ignored by the automation script gcpfind_server, and is purely for user input.
  1.1 The whitelisted prefixes are
- - STAGE: &lt;name of the stage>: Stage represents where gcpfind is currently at
+ - STAGE: &lt;name of the stage$gt;: Stage represents where gcpfind is currently at
  - PROGRESS: number from 0..100 representing the progress at this stage>>: Progress indicates the progress of the current stage
  - RESPONSE: <json response>: Response notifies gcpfind_server that data should be read in.
  - WAITING: : Waiting notifies gcpfind_server that data should be sent in

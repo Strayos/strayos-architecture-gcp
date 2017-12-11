@@ -4,7 +4,7 @@
 * [Technical Specification](chapter1.md)
   * [Understanding gcpfind.py](chapter1/understanding-gcpfindpy.md)
   * [Understanding gcpfind\_server](chapter1/understanding-gcpfindserver.md)
-  * Understanding gcpfind\_cluster
+  * [Understanding gcpfind\_cluster](chapter1/understanding-gcpfindcluster.md)
 * [Appendix](appendix.md)
   * [gcpfind\_server API](appendix/gcpfindserver.md)
 

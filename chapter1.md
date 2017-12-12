@@ -12,6 +12,9 @@ Let's describe how these pieces work from a bottom-up perspective.
 
 #### gcpfind.py
 
+* example: `python gcptool.py ./data/598`
+* example2: `python gcptool.py ./data/598 -f feedback.json` Optional parameter skips the initial gcp definition phase.
+
 A typical run of gcpfind.py looks like this:
 
 **$** Indicates standard out  
@@ -20,19 +23,32 @@ A typical run of gcpfind.py looks like this:
 ```
 $ welcome to GCP detection
 $ starting GCP detection
-$ STAGE: GCP detection
+$ STAGE: Starting GCP detection
+$ Predicting GCP: 1
 $ PROGRESS: 0
 $ PROGRESS: 50
 $ PROGRESS: 100
 $ RESPONSE: { gcp: "gcp1", file:"DJI001.JPG", location:[400, 555] }
-$ Please send feedback
+$ Please send user updated GCP center
+$ WAITING:
 > { gcp: "gcp1", file:"DJI001.jpg", location:[450, 555] }
-$ Response: { gcp: "gcp3", file: "DJI003.JPG", location: [300, 330] }
-$ Please send feedback
+$ RESPONSE: { gcp: "gcp3", file: "DJI003.JPG", location: [300, 330] }
+$ Please send user updated GCP center
+$ WAITING
 > { gcp: "gcp3", file:"DJI001.jpg", location:[330, 300] }
-... repeat until feedback has been sent for every gcp file. 
-$ STAGE: GCP File Generation
-$ Response: { gcp: "/home/code/gcp_list.txt", feedback: {} }
+... repeat until feedback has been sent for every gcp file.
+$ Loaded GCP labels for project:
+$ STAGE: Finding all GCP matches
+$ Processing data/598/images/DJI_0053.JPG -  Distance to center: 236
+$ found 1/5 files
+$ Progress:20.0
+...
+$ Progress:100.0
+$ RESPONSE:[{"gcp": "1", "filename": "data/598/images/DJI_0053.JPG", "location": [2523, 2090]}, {"gcp": "1", "filename": "data/598/images/DJI_0054.JPG", "location": [2487, 2362]}, {"gcp": "1", "filename": "data/598/images/DJI_0052.JPG", "location": [2640, 1240]}, {"gcp": "1", "filename": "data/598/images/DJI_0042.JPG", "location": [1702, 1623]}, {"gcp": "1", "filename": "data/598/images/DJI_0043.JPG", "location": [1655, 2466]}]
+$ Please send user updated results
+$ WAITING:
+$ '\n' indicates no change, otherwise updated list should be sent back
+$ Response: { gcp: "/home/data/598/gcp_list.txt", feedback: "data/598/feedback.json" }
 $ EXIT: 0
 ```
 
